@@ -1,0 +1,21 @@
+# fly.toml app configuration file generated for f4ria-tg-bot-daily on 2023-11-01T19:11:20+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "f4ria-tg-bot-daily"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "Dockerfile"
+  ignorefile = ".dockerignore"
+
+[env]
+  TZ="Asia/Shanghai"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 0

@@ -1,0 +1,93 @@
+name: Run Daily
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "40 15 * * *"
+
+env:
+  GITHUB_NAME: F4ria
+  GITHUB_EMAIL: f4riacool@gmail.com
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      CURL_OUTPUT: "/tmp/curl_output.log"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate new daily
+        run: |
+          python run_daily.py ${{ secrets.G_T }} ${{ github.repository }}
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Debug Git Configuration
+        run: |
+          git config --list
+          git status
+
+      - name: Add and Commit changes
+        run: |
+          git add .
+          git diff --staged --exit-code || git commit -m "new daily stats"
+
+      - name: Push changes
+        if: success()
+        run: git push
+
+      - name: Notify via Telegram - Success
+        if: success()
+        run: |
+          TELEGRAM_BOT_TOKEN="${{ secrets.TG_TOKEN }}"
+          CHAT_ID="${{ secrets.TG_CHAT_ID }}"
+          WORKFLOW_NAME="${{ github.workflow }}"
+          MESSAGE="[Success] GitHub Actions: $WORKFLOW_NAME completed!"
+
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$MESSAGE" > $CURL_OUTPUT
+
+      - name: Notify via Telegram - Failure
+        if: failure()
+        run: |
+          TELEGRAM_BOT_TOKEN="${{ secrets.TG_TOKEN }}"
+          CHAT_ID="${{ secrets.TG_CHAT_ID }}"
+          WORKFLOW_NAME="${{ github.workflow }}"
+          MESSAGE="[Failed] GitHub Actions: $WORKFLOW_NAME completed!"
+
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+            -d "chat_id=$CHAT_ID" \
+            -d "text=$MESSAGE" > $CURL_OUTPUT
+
+      - name: Check output for sensitive information
+        if: always()
+        run: |
+          if [ -f "$CURL_OUTPUT" ]; then
+            grep -v '"ok":true' $CURL_OUTPUT || echo "notify via telegram success."
+          fi
