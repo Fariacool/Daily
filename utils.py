@@ -107,7 +107,7 @@ def sha256_hash(string) -> str:
 def is_owner(message: Message, owners: Optional[list]) -> bool:
     if not owners:
         return True
-    return sha256_hash(message.from_user.id) in owners
+    return sha256_hash(str(message.from_user.id)) in owners
 
 
 def extract_command(message: Message, bot_name="") -> (str, str):
