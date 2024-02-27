@@ -7,9 +7,9 @@
 <!--START_SECTION:my_number-->
 | Name | Status | Start Day | Latest Day | Win Days | Longest Streak |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| [英语单词](https://github.com/F4ria/Daily/issues/5) | - | 2022-10-07 | 2024-02-26 | 506 | 275 | <!-- 2023-05-04 to 2024-02-02 --> 
+| [英语单词](https://github.com/F4ria/Daily/issues/5) | - | 2022-10-07 | 2024-02-27 | 507 | 275 | <!-- 2023-05-04 to 2024-02-02 --> 
 | [俯卧撑](https://github.com/F4ria/Daily/issues/3) | 20060(个) | 2022-10-07 | 2024-02-26 | 483 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
-| [英语跟读](https://github.com/F4ria/Daily/issues/6) | - | 2022-11-06 | 2024-02-26 | 442 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
+| [英语跟读](https://github.com/F4ria/Daily/issues/6) | - | 2022-11-06 | 2024-02-27 | 443 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
 | [深蹲](https://github.com/F4ria/Daily/issues/2) | 14210(个) | 2023-01-05 | 2024-02-26 | 382 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
 | [仰卧起坐](https://github.com/F4ria/Daily/issues/4) | 13525(个) | 2023-01-31 | 2024-02-26 | 360 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
 | [平板支撑](https://github.com/F4ria/Daily/issues/1) | 786(分钟) | 2023-02-10 | 2024-02-26 | 350 | 107 | <!-- 2023-10-01 to 2024-01-15 --> 
