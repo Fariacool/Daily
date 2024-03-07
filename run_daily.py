@@ -122,8 +122,8 @@ def replace_my_number(github_token: str, repo_name: str):
 
         write_dict_as_file(data, file_path)
 
-        if v.get("skip_readme"):
-            print("skip_readme is True, so skip it ...")
+        if v.get("hide_readme", False):
+            print("hide_readme is True, so hide it ...")
             continue
 
         status = new_my_number_status(

@@ -78,11 +78,13 @@ MyNumber = {
         "allowed_user": BotOwner,
         "desc": "英语单词",
         "label": IssueEnglishVocabularyLabels,
+        "hide_readme": True,
     },
     "eng_shadowing": {
         "allowed_user": BotOwner,
         "desc": "英语跟读",
         "label": IssueEnglishShadowingLabels,
+        "hide_readme": True,
     },
     "skipping_rope": {
         "allowed_user": BotOwner,
@@ -102,13 +104,15 @@ MyNumber = {
         "allowed_user": BotOwner,
         "desc": "oh_my_god",
         "label": IssueOhMyGodLabels,
-        "skip_readme": True,
+        "hide_todo": True,
+        "hide_readme": True,
     },
     "oh_my_god_d": {
         "allowed_user": BotOwner,
         "desc": "oh_my_god_d",
         "label": IssueOhMyGodDLabels,
-        "skip_readme": True,
+        "hide_todo": True,
+        "hide_readme": True,
     },
 }
 
@@ -118,7 +122,7 @@ RunningPhoto = {
         "desc": "image for running or running comment xx weeks",
         "label": IssueRunningLabels,
         "path": f"{DataDir}/images/running",
-        "skip_readme": True,
+        "hide_todo": True,
     },
 }
 

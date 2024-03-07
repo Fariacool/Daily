@@ -94,7 +94,7 @@ def respond_daily(
     try:
         issue.create_comment(body=cmd_text)
         bot.reply_to(message, "create comment success.")
-        if not task.get("skip_readme"):
+        if not task.get("hide_todo", False):
             respond_my_number_todo(bot, message, repo, github_name)
     except Exception as e:
         bot.reply_to(message, f"create comment failed: {e}")
@@ -125,7 +125,7 @@ def respond_my_number_todo(
     do_fmt = "☑{0}"
     todo_fmt = "☐{0}"
     for task, config in MyNumber.items():
-        if config.get("skip_readme"):
+        if config.get("hide_todo", False):
             continue
         desc: str = config.get("desc")
         task_name = desc
@@ -209,7 +209,7 @@ def respond_clock_in_summary(
         if not config:
             print(f"{tag} not found in 'MyNumber'")
             continue
-        if config.get("skip_readme"):
+        if config.get("hide_todo", False):
             continue
 
         filename = MyNumberFilenameFormat.format(**config)
