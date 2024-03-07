@@ -51,7 +51,5 @@
 
 ## 感谢
 
-> [!NOTE]
-> 通过 issues 配合 labels 记录的想法和部分代码来自: 
-> * [yihong0618/2023: Another year](https://github.com/yihong0618/2023)
-> * [如何用一个仓库记录自己的一年 · Issue #209 · yihong0618/gitblog](https://github.com/yihong0618/gitblog/issues/209)
+* [yihong0618/2023: Another year](https://github.com/yihong0618/2023)
+* [如何用一个仓库记录自己的一年 · Issue #209 · yihong0618/gitblog](https://github.com/yihong0618/gitblog/issues/209)

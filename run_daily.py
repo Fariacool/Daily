@@ -35,7 +35,7 @@ from utils import (
 
 
 def new_my_number_status(
-    status_func, status_unit_str: str, days_vals: dict, desc: str, html_url: str
+    status_func, status_unit_str: str, days_vals: dict, desc: str, html_url: str = None
 ) -> dict:
     status: dict = list_to_dict(MyNumberHeader)
     days = list(sorted([i for i in days_vals.keys()]))
@@ -131,7 +131,7 @@ def replace_my_number(github_token: str, repo_name: str):
             status_unit_str=status_unit_str,
             days_vals=data,
             desc=desc,
-            html_url=issue.html_url,
+            # html_url=issue.html_url,
         )
         print(f"{status}")
         my_num_status_list.append(status)
@@ -146,7 +146,6 @@ def replace_my_number(github_token: str, repo_name: str):
                 status_unit_str=status_unit_str,
                 days_vals=data_year,
                 desc=desc,
-                html_url="",
             )
             print(f"{year}: {status_year}")
             my_num_status_year[year].append(status_year)
