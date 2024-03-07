@@ -128,7 +128,7 @@ def respond_my_number_todo(
         if config.get("skip_readme"):
             continue
         desc: str = config.get("desc")
-        task_name = desc.split("_")[-1]
+        task_name = desc
 
         labels: list = config.get("label")
         if labels is None:
@@ -187,7 +187,7 @@ def respond_clock_in(bot: TeleBot, message: Message, repo: Repository, clock_in:
         data: dict = read_str_as_dict(text)
 
         desc: str = config.get("desc")
-        name = desc.split("_")[-1]
+        name = desc
         resp_message.append(f"{name} {len(data)} 天")
 
     msg = ", ".join(resp_message) + "."
@@ -223,7 +223,7 @@ def respond_clock_in_summary(
 
         desc = config.get("desc")
         stat: dict = list_to_dict(["name", "start_day", "win_days", "fail_days"])
-        stat["name"] = desc.split("_")[-1]
+        stat["name"] = desc
         stat["start_day"] = list(sorted([i for i in data.keys()]))[0]
         stat["win_days"] = len(data)
         stat["fail_days"] = days_until_today(stat["start_day"]) - stat["win_days"]

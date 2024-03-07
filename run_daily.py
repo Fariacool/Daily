@@ -40,7 +40,7 @@ def new_my_number_status(
     days = list(sorted([i for i in days_vals.keys()]))
     vals = [i for i in days_vals.values()]
 
-    name = desc.split('_')[-1]
+    name = desc
     if html_url:
         name = f"[{name}]({html_url})"
     status["name"] = name
