@@ -5,7 +5,7 @@ import pendulum
 
 from hashlib import sha256
 
-from typing import Optional
+from typing import Optional, Tuple
 from telebot.types import Message  # type: ignore
 from github.IssueComment import IssueComment  # type: ignore
 
@@ -110,7 +110,7 @@ def is_owner(message: Message, owners: Optional[list]) -> bool:
     return sha256_hash(str(message.from_user.id)) in owners
 
 
-def extract_command(message: Message, bot_name="") -> (str, str):
+def extract_command(message: Message, bot_name="") -> Tuple[str, str]:
     cmd = message.text.split()[0]
     cmd_text = message.text[len(cmd) :].strip()
     if "@" in cmd:
@@ -124,7 +124,7 @@ def extract_command(message: Message, bot_name="") -> (str, str):
     return cmd.strip().lstrip("/"), cmd_text.strip()
 
 
-def extract_photo_command(message: Message, bot_name="") -> (str, str):
+def extract_photo_command(message: Message, bot_name="") -> Tuple[str, str]:
     s = message.text or message.caption
     cmd = s.split()[0]
     cmd_text = s[len(cmd) :].strip()
@@ -154,7 +154,7 @@ def replace_readme_comments(file_name, comment_str, comments_name):
         f.truncate()
 
 
-def longest_consecutive_dates(date_list) -> (str, str):
+def longest_consecutive_dates(date_list) -> Tuple[str, str]:
     if not date_list:
         return None, None
 
