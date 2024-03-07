@@ -43,11 +43,17 @@
 <!--END_SECTION:my_number_year-->
 </details>
 
-## [跑步](https://github.com/F4ria/Daily/issues/10)
+## [跑步](https://running-f4ria.vercel.app/)
 
 <!--START_SECTION:running-->
 <img src="https://github.com/F4ria/Daily/blob/master/data/images/running/20240304-232301-106_weeks.jpg" width="35%">
 <!--END_SECTION:running-->
+
+<details>
+  <summary>查看分年统计</summary>
+
+![](https://github.com/F4ria/running_page/blob/run/assets/github.svg?raw=true)
+</details>
 
 ## 感谢
 
