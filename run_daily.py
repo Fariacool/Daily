@@ -30,6 +30,7 @@ from utils import (
     fmt_markdown_table_header,
     fmt_markdown_table_template,
     list_to_dict,
+    group_my_number_by_year,
 )
 
 
@@ -63,6 +64,18 @@ def new_my_number_status(
     return status
 
 
+def new_my_number_status_template():
+    status_header = fmt_markdown_table_header(MyNumberHeader)
+    status_template = fmt_markdown_table_template(MyNumberHeader)
+    status_template = (
+        status_template.rstrip("\n")
+        + " <!-- {streak_start} to {streak_end} --> "
+        + "\n"
+    )
+
+    return status_header, status_template
+
+
 def replace_my_number(github_token: str, repo_name: str):
     gh = Github(github_token)
     repo = gh.get_repo(repo_name)
@@ -70,6 +83,13 @@ def replace_my_number(github_token: str, repo_name: str):
 
     today_utc = fmt_to_today_utc(TimeZone)
     my_num_status_list = []
+
+    # {
+    #   "2022": [my_num_status_list],
+    #   "2023": [my_num_status_list],
+    #   "2024": [my_num_status_list],
+    # }
+    my_num_status_year = dict()
 
     for k, v in MyNumber.items():
         labels = v.get("label")
@@ -113,25 +133,50 @@ def replace_my_number(github_token: str, repo_name: str):
             desc=desc,
             html_url=issue.html_url,
         )
-        my_num_status_list.append(status)
         print(f"{status}")
+        my_num_status_list.append(status)
+
+        data_by_year = group_my_number_by_year(data=data)
+        for year, data_year in data_by_year.items():
+            if year not in my_num_status_year:
+                my_num_status_year[year] = []
+
+            status_year = new_my_number_status(
+                status_func=status_func,
+                status_unit_str=status_unit_str,
+                days_vals=data_year,
+                desc=desc,
+                html_url="",
+            )
+            print(f"{year}: {status_year}")
+            my_num_status_year[year].append(status_year)
+
         print(f"{k} done.")
 
-    my_num_status_str = fmt_markdown_table_header(MyNumberHeader)
-    status_template = fmt_markdown_table_template(MyNumberHeader)
-    status_template = (
-        status_template.rstrip("\n")
-        + " <!-- {streak_start} to {streak_end} --> "
-        + "\n"
-    )
+    status_header, status_template = new_my_number_status_template()
 
+    status_str = status_header
     my_num_status_list = sort_dict_within_list(
         my_num_status_list, key1="start_day", key2="win_days"
     )
     for status in my_num_status_list:
-        my_num_status_str += status_template.format(**status)
+        status_str += status_template.format(**status)
+    replace_readme_comments("README.md", status_str, "my_number")
 
-    replace_readme_comments("README.md", my_num_status_str, "my_number")
+    status_str = "\n"
+    my_num_status_year = sorted(
+        my_num_status_year.items(), key=lambda x: x[0], reverse=True
+    )
+    for year, status_list in my_num_status_year:
+        status_str += f"### {year}\n"
+        status_str += status_header
+        status_list = sort_dict_within_list(
+            status_list, key1="start_day", key2="win_days"
+        )
+        for status in status_list:
+            status_str += status_template.format(**status)
+        status_str += "\n"
+    replace_readme_comments("README.md", status_str, "my_number_year")
 
 
 def replace_running(github_token: str, repo_name: str):

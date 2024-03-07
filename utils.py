@@ -231,3 +231,29 @@ def fmt_markdown_table_template(header_list: list) -> str:
 
 def list_to_dict(header_list) -> dict:
     return {item.lower().replace(" ", "_"): None for item in header_list}
+
+
+def group_my_number_by_year(data: dict) -> dict:
+    """
+    data = {
+    "2022-03-02":85
+    "2023-08-04":85
+    "2023-07-04":80
+    "2024-03-04":85
+    "2024-03-05":85
+    "2024-03-06":50
+    }
+
+    data_year = {
+    "2022": {"2022-03-02":85},
+    "2023": {"2023-08-04":85, "2023-07-04":80},
+    "2024": {"2024-03-04":85, "2024-03-05":85, "2024-03-06":50}
+    }
+    """
+    data_year = {}
+    for date, value in data.items():
+        year = date.split("-")[0]
+        if year not in data_year:
+            data_year[year] = {}
+        data_year[year][date] = value
+    return data_year
