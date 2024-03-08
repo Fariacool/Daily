@@ -282,11 +282,10 @@ def format_pace(distance_meters, total_seconds):
     avg_speed_m_per_s = distance_meters / total_seconds
 
     # 计算配速，即每公里需要的分钟数
-    pace_per_km = (1000 / 60) * (1.0 / avg_speed_m_per_s)
+    pace_per_km = (1.0 / avg_speed_m_per_s) * 1000 / 60
 
     # 提取配速的分钟和秒数
     minutes = int(pace_per_km)
     seconds = int((pace_per_km - minutes) * 60)
 
-    # 格式化输出
     return f"{minutes}'{seconds:02d}\""
