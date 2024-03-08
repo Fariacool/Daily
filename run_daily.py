@@ -2,6 +2,8 @@ import argparse
 import os
 import re
 
+import requests
+
 from github import Github
 from github.ContentFile import ContentFile  # type: ignore
 from github.Issue import Issue  # type: ignore
@@ -15,6 +17,9 @@ from config import (
     TimeZone,
     MyNumberHeader,
     RunningPhoto,
+    RunningActivityURL,
+    RunningYearHeader,
+    RunningMonthHeader,
 )
 
 from utils import (
@@ -31,6 +36,9 @@ from utils import (
     fmt_markdown_table_template,
     list_to_dict,
     group_my_number_by_year,
+    time_to_seconds,
+    seconds_to_time,
+    format_pace,
 )
 
 
@@ -74,6 +82,21 @@ def new_my_number_status_template():
     )
 
     return status_header, status_template
+
+
+def new_run_data(header, year_or_month, runs, sum_meters, sum_seconds):
+    run_data = list_to_dict(header)
+    if "year" in run_data:
+        run_data["year"] = year_or_month
+    else:
+        run_data["month"] = year_or_month
+
+    run_data["runs"] = runs
+    run_data["distance"] = f"{sum_meters/1000:.2f} km"
+    run_data["time"] = seconds_to_time(sum_seconds)
+    run_data["avg_pace"] = format_pace(sum_meters, sum_seconds)
+
+    return run_data
 
 
 def replace_my_number(github_token: str, repo_name: str):
@@ -178,6 +201,81 @@ def replace_my_number(github_token: str, repo_name: str):
     replace_readme_comments("README.md", status_str, "my_number_year")
 
 
+def replace_running_year():
+    r = requests.get(RunningActivityURL, timeout=30)
+    if not r.ok:
+        print(f"retrieve running data code: {r.status_code}")
+        return
+
+    run_year_month = dict()
+
+    # "distance": 12025.736,
+    # "moving_time": "1:23:54",
+    # "type": "Run",
+    # "start_date_local": "2024-03-06 20:51:01"
+    for run in r.json():
+        if run["type"].lower() != "run":
+            continue
+
+        date_local = run["start_date_local"]
+        year, month = date_local.split(" ")[0].split("-")[:2]
+        meters = int(run["distance"])
+        seconds = time_to_seconds(run["moving_time"])
+
+        if year not in run_year_month:
+            run_year_month[year] = dict()
+
+        if month not in run_year_month[year]:
+            run_year_month[year][month] = {
+                "meters": [],
+                "seconds": [],
+            }
+
+        run_year_month[year][month]["meters"].append(meters)
+        run_year_month[year][month]["seconds"].append(seconds)
+
+    year_header = fmt_markdown_table_header(RunningYearHeader)
+    year_template = fmt_markdown_table_template(RunningYearHeader)
+
+    month_header = fmt_markdown_table_header(RunningMonthHeader)
+    month_template = fmt_markdown_table_template(RunningMonthHeader)
+
+    run_year_str = year_header
+    run_month_str = ""
+
+    for year, month_dict in sorted(
+        run_year_month.items(), key=lambda x: x[0], reverse=True
+    ):
+        year_runs = 0
+        year_meters = 0
+        year_seconds = 0
+
+        run_month_str += f"### {year}\n"
+        run_month_str += month_header
+
+        for month, data in sorted(month_dict.items(), key=lambda x: x[0], reverse=True):
+            month_runs = len(data["meters"])
+            month_meters = sum(data["meters"])
+            month_seconds = sum(data["seconds"])
+
+            year_runs += month_runs
+            year_meters += month_meters
+            year_seconds += month_seconds
+
+            month_data = new_run_data(
+                RunningMonthHeader, month, month_runs, month_meters, month_seconds
+            )
+            run_month_str += month_template.format(**month_data)
+
+        year_data = new_run_data(
+            RunningYearHeader, year, year_runs, year_meters, year_seconds
+        )
+        run_year_str += year_template.format(**year_data)
+
+    replace_readme_comments("README.md", run_year_str, "running_year")
+    replace_readme_comments("README.md", run_month_str, "running_month")
+
+
 def replace_running(github_token: str, repo_name: str):
     gh = Github(github_token)
     repo = gh.get_repo(repo_name)
@@ -202,7 +300,9 @@ def replace_running(github_token: str, repo_name: str):
     print(f"filename: {filename}, url: {cf.html_url}")
 
     status_str = f'<img src="{cf.html_url}" width="35%">'
-    replace_readme_comments("README.md", status_str, "running")
+    replace_readme_comments("README.md", status_str, "running_img")
+
+    replace_running_year()
 
 
 if __name__ == "__main__":

@@ -116,6 +116,10 @@ MyNumber = {
     },
 }
 
+RunningActivityURL = (
+    "https://github.com/F4ria/running_page/blob/run/src/static/activities.json?raw=true"
+)
+
 RunningPhoto = {
     "running": {
         "allowed_user": BotOwner,
@@ -133,6 +137,22 @@ MyNumberHeader = [
     "Latest Day",
     "Win Days",
     "Longest Streak",
+]
+
+RunningYearHeader = [
+    "Year",
+    "Distance",
+    "Time",
+    "Avg Pace",
+    "Runs",
+]
+
+RunningMonthHeader = [
+    "Month",
+    "Distance",
+    "Time",
+    "Avg Pace",
+    "Runs",
 ]
 
 # bot command /run_daily

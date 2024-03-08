@@ -45,14 +45,60 @@
 
 ## [跑步](https://running-f4ria.vercel.app/)
 
-<!--START_SECTION:running-->
+<!--START_SECTION:running_img-->
 <img src="https://github.com/F4ria/Daily/blob/master/data/images/running/20240304-232301-106_weeks.jpg" width="35%">
-<!--END_SECTION:running-->
+<!--END_SECTION:running_img-->
+
+<!--START_SECTION:running_year-->
+| Year | Distance | Time | Avg Pace | Runs |
+| :---: | :---: | :---: | :---: | :---: |
+| 2024 | 216.71 km | 26h 03m 13s | 7'12" | 21 |
+| 2023 | 818.80 km | 96h 32m 50s | 7'04" | 135 |
+| 2022 | 462.23 km | 54h 46m 27s | 7'06" | 129 |
+
+<!--END_SECTION:running_year-->
 
 <details>
-  <summary>查看分年统计</summary>
+  <summary>查看分月统计</summary>
 
-![](https://github.com/F4ria/running_page/blob/run/assets/github.svg?raw=true)
+<!--START_SECTION:running_month-->
+### 2024
+| Month | Distance | Time | Avg Pace | Runs |
+| :---: | :---: | :---: | :---: | :---: |
+| 03 | 34.19 km | 3h 56m 02s | 6'54" | 3 |
+| 02 | 61.10 km | 7h 28m 53s | 7'20" | 6 |
+| 01 | 121.42 km | 14h 38m 18s | 7'13" | 12 |
+### 2023
+| Month | Distance | Time | Avg Pace | Runs |
+| :---: | :---: | :---: | :---: | :---: |
+| 12 | 124.46 km | 14h 33m 40s | 7'01" | 14 |
+| 11 | 80.72 km | 9h 13m 38s | 6'51" | 12 |
+| 10 | 72.94 km | 7h 56m 06s | 6'31" | 13 |
+| 09 | 62.24 km | 7h 00m 58s | 6'45" | 11 |
+| 08 | 59.45 km | 7h 03m 58s | 7'07" | 12 |
+| 07 | 49.76 km | 6h 09m 54s | 7'25" | 10 |
+| 06 | 49.42 km | 6h 02m 15s | 7'19" | 10 |
+| 05 | 66.12 km | 8h 44m 43s | 7'56" | 11 |
+| 04 | 85.57 km | 9h 52m 47s | 6'55" | 10 |
+| 03 | 90.04 km | 10h 23m 07s | 6'55" | 12 |
+| 02 | 47.07 km | 5h 46m 08s | 7'21" | 12 |
+| 01 | 31.01 km | 3h 45m 36s | 7'16" | 8 |
+### 2022
+| Month | Distance | Time | Avg Pace | Runs |
+| :---: | :---: | :---: | :---: | :---: |
+| 12 | 31.17 km | 3h 46m 57s | 7'16" | 7 |
+| 11 | 59.08 km | 6h 49m 08s | 6'55" | 13 |
+| 10 | 51.54 km | 5h 55m 37s | 6'53" | 10 |
+| 09 | 32.31 km | 3h 37m 02s | 6'43" | 9 |
+| 08 | 30.71 km | 3h 41m 44s | 7'13" | 10 |
+| 07 | 37.35 km | 4h 19m 48s | 6'57" | 12 |
+| 06 | 42.73 km | 5h 28m 10s | 7'40" | 14 |
+| 05 | 55.32 km | 6h 40m 12s | 7'14" | 17 |
+| 04 | 68.98 km | 8h 19m 48s | 7'14" | 20 |
+| 03 | 50.57 km | 5h 48m 11s | 6'53" | 16 |
+| 02 | 2.47 km | 0h 19m 50s | 8'01" | 1 |
+
+<!--END_SECTION:running_month-->
 </details>
 
 ## 感谢

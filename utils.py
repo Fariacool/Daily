@@ -257,3 +257,36 @@ def group_my_number_by_year(data: dict) -> dict:
             data_year[year] = {}
         data_year[year][date] = value
     return data_year
+
+
+def time_to_seconds(time_string):
+    hours, minutes, seconds = map(int, time_string.split(":"))
+    total_seconds = hours * 3600 + minutes * 60 + seconds
+    return total_seconds
+
+
+def seconds_to_time(total_seconds):
+    total_minutes = int(total_seconds / 60)
+    hours = int(total_minutes / 60)
+    minutes = total_minutes % 60
+    seconds = total_seconds - total_minutes * 60
+
+    return f"{hours}:{minutes:02d}:{seconds:02d}"
+
+
+def format_pace(distance_meters, total_seconds):
+    if total_seconds <= 0:
+        return "0'00\""
+
+    # 计算平均速度，单位是米/秒
+    avg_speed_m_per_s = distance_meters / total_seconds
+
+    # 计算配速，即每公里需要的分钟数
+    pace_per_km = (1000 / 60) * (1.0 / avg_speed_m_per_s)
+
+    # 提取配速的分钟和秒数
+    minutes = int(pace_per_km)
+    seconds = int((pace_per_km - minutes) * 60)
+
+    # 格式化输出
+    return f"{minutes}'{seconds:02d}\""
