@@ -87,10 +87,10 @@ def new_my_number_status_template():
 
 def new_run_data(header, year_or_month, runs, sum_meters, sum_seconds):
     run_data = list_to_dict(header)
-    if "year" in run_data:
-        run_data["year"] = year_or_month
-    else:
+    if "month" in run_data:
         run_data["month"] = year_or_month
+    else:
+        run_data["year"] = year_or_month
 
     run_data["runs"] = runs
     run_data["distance"] = f"{sum_meters/1000:.2f} km"
@@ -220,6 +220,10 @@ def replace_running_year():
 
     run_year_month = dict()
 
+    total_meters = 0
+    total_seconds = 0
+    total_runs = 0
+
     # "distance": 12025.736,
     # "moving_time": "1:23:54",
     # "type": "Run",
@@ -233,6 +237,10 @@ def replace_running_year():
         year, month = date_local.split(" ")[0].split("-")[:2]
         meters = int(run["distance"])
         seconds = time_to_seconds(run["moving_time"])
+
+        total_meters += meters
+        total_seconds += seconds
+        total_runs += 1
 
         if year not in run_year_month:
             run_year_month[year] = dict()
@@ -254,6 +262,11 @@ def replace_running_year():
 
     run_year_str = year_header
     run_month_str = ""
+
+    total_data = new_run_data(
+        RunningYearHeader, " ", total_runs, total_meters, total_seconds
+    )
+    run_year_str += year_template.format(**total_data)
 
     for year, month_dict in sorted(
         run_year_month.items(), key=lambda x: x[0], reverse=True
