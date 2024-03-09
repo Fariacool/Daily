@@ -155,6 +155,13 @@ RunningMonthHeader = [
     "Runs",
 ]
 
+RunningLatestHeader = [
+    "Latest Date",
+    "Distance",
+    "Time",
+    "Avg Pace",
+]
+
 # bot command /run_daily
 GithubWorkflow = {
     "run_daily": {

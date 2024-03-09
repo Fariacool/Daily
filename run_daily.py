@@ -20,6 +20,7 @@ from config import (
     RunningActivityURL,
     RunningYearHeader,
     RunningMonthHeader,
+    RunningLatestHeader,
 )
 
 from utils import (
@@ -97,6 +98,16 @@ def new_run_data(header, year_or_month, runs, sum_meters, sum_seconds):
     run_data["avg_pace"] = format_pace(sum_meters, sum_seconds)
 
     return run_data
+
+
+def new_run_latest(header, date_local, sum_meters, sum_seconds):
+    run_latest = list_to_dict(header)
+    run_latest["latest_date"] = date_local
+    run_latest["distance"] = f"{sum_meters/1000:.2f} km"
+    run_latest["time"] = seconds_to_time(sum_seconds)
+    run_latest["avg_pace"] = format_pace(sum_meters, sum_seconds)
+
+    return run_latest
 
 
 def replace_my_number(github_token: str, repo_name: str):
@@ -213,7 +224,8 @@ def replace_running_year():
     # "moving_time": "1:23:54",
     # "type": "Run",
     # "start_date_local": "2024-03-06 20:51:01"
-    for run in r.json():
+    r_json = r.json()
+    for run in r_json:
         if run["type"].lower() != "run":
             continue
 
@@ -272,6 +284,21 @@ def replace_running_year():
         )
         run_year_str += year_template.format(**year_data)
 
+    leatest_header = fmt_markdown_table_header(RunningLatestHeader)
+    latest_template = fmt_markdown_table_template(RunningLatestHeader)
+    latest_num = 5
+    latest_run = r_json[-latest_num:]
+    latest_run_str = leatest_header
+    for run in latest_run[::-1]:
+        latest_data = new_run_latest(
+            RunningLatestHeader,
+            run["start_date_local"],
+            int(run["distance"]),
+            time_to_seconds(run["moving_time"]),
+        )
+        latest_run_str += latest_template.format(**latest_data)
+
+    replace_readme_comments("README.md", latest_run_str, "running_latest")
     replace_readme_comments("README.md", run_year_str, "running_year")
     replace_readme_comments("README.md", run_month_str, "running_month")
 
