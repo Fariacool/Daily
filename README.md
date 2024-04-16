@@ -2,7 +2,7 @@
 
 日常记录，tg bot 触发不同的命令，将内容评论到对应 labels 的 issue。
 
-## 我的数字
+## 活着就数数
 
 <!--START_SECTION:my_number-->
 | Name | Status | Start Day | Latest Day | Win Days | Longest Streak |
@@ -15,7 +15,7 @@
 <!--END_SECTION:my_number-->
 
 <details>
-  <summary>查看分年统计</summary>
+  <summary>分年统计</summary>
 <!--START_SECTION:my_number_year-->
 
 ### 2024
@@ -71,7 +71,7 @@
 <!--END_SECTION:running_year-->
 
 <details>
-  <summary>查看分月统计</summary>
+  <summary>分月统计</summary>
 
 <!--START_SECTION:running_month-->
 ### 2024
