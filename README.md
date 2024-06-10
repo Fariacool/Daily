@@ -46,7 +46,7 @@
 ## [跑步](https://running-f4ria.vercel.app/)
 
 <!--START_SECTION:running_img-->
-<img src="https://github.com/F4ria/Daily/blob/master/data/images/running/20240604-235938-119_weeks.jpg" width="35%">
+<img src="https://github.com/F4ria/Daily/blob/master/data/images/running/20240610-213816-120_weeks.jpg" width="35%">
 <!--END_SECTION:running_img-->
 
 <!--START_SECTION:running_latest-->
