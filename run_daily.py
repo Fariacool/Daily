@@ -213,9 +213,13 @@ def replace_my_number(github_token: str, repo_name: str):
 
 
 def replace_running_year():
-    r = requests.get(RunningActivityURL, timeout=30)
-    if not r.ok:
-        print(f"retrieve running data code: {r.status_code}")
+    try:
+        r = requests.get(RunningActivityURL, timeout=30)
+        if not r.ok:
+            print(f"retrieve running data code: {r.status_code}")
+            return
+    except Exception as e:
+        print(f"request to {RunningActivityURL} error: {e}")
         return
 
     run_year_month = dict()
@@ -226,17 +230,19 @@ def replace_running_year():
 
     # "distance": 12025.736,
     # "moving_time": "1:23:54",
+    # "moving_time": "1:41:40.917000",
     # "type": "Run",
     # "start_date_local": "2024-03-06 20:51:01"
     r_json = r.json()
     for run in r_json:
         if run["type"].lower() != "run":
             continue
+        moving_time = run["moving_time"].split(".")[0]
 
         date_local = run["start_date_local"]
         year, month = date_local.split(" ")[0].split("-")[:2]
         meters = int(run["distance"])
-        seconds = time_to_seconds(run["moving_time"])
+        seconds = time_to_seconds(moving_time)
 
         total_meters += meters
         total_seconds += seconds
@@ -307,7 +313,7 @@ def replace_running_year():
             RunningLatestHeader,
             run["start_date_local"],
             int(run["distance"]),
-            time_to_seconds(run["moving_time"]),
+            time_to_seconds(moving_time),
         )
         latest_run_str += latest_template.format(**latest_data)
 
