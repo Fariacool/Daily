@@ -139,13 +139,13 @@ def replace_my_number(github_token: str, repo_name: str):
             continue
         issue: Issue = issues[0]
 
+        # load from file
+        file_path = os.path.join(DataDir, MyNumberFilenameFormat.format(**v))
+        data: dict = read_file_as_dict(file_path)
+
         comments = issue.get_comments(since=today_utc.subtract(days=7))
         if comments.totalCount <= 0:
             print(f"No comment found.")
-            continue
-
-        file_path = os.path.join(DataDir, MyNumberFilenameFormat.format(**v))
-        data: dict = read_file_as_dict(file_path)
 
         for c in comments:
             if not github_is_me(c, me):
@@ -153,6 +153,10 @@ def replace_my_number(github_token: str, repo_name: str):
             text = c.body.splitlines()[0]
             created_at_day = fmt_utc_to_date_str(c.created_at, TimeZone)
             data.update({created_at_day: text})
+
+        if not any(data):
+            print("data is empty.")
+            continue
 
         write_dict_as_file(data, file_path)
 
