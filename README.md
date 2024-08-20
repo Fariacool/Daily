@@ -2,7 +2,7 @@
 
 日常记录，tg bot 触发不同的命令，将内容评论到对应 labels 的 issue。
 
-## 活着就数数
+## 计数器
 
 <!--START_SECTION:my_number-->
 | Name | Status | Start Day | Latest Day | Win Days | Longest Streak |
