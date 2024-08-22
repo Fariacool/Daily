@@ -57,6 +57,7 @@ jobs:
       #     git add .
       #     git diff --staged --exit-code || git commit -m "new daily stats"
       
+      # https://github.com/marketplace/actions/add-commit
       - name: Committer
         uses: EndBug/add-and-commit@v9
         with:
