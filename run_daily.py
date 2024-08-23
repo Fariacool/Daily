@@ -11,6 +11,7 @@ from github.Issue import Issue  # type: ignore
 
 from config import (
     MyNumber,
+    JustWriteIt,
     DataDir,
     GithubWorkBranch,
     MyNumberFilenameFormat,
@@ -29,6 +30,7 @@ from utils import (
     github_is_me,
     fmt_to_today_utc,
     fmt_utc_to_date_str,
+    fmt_utc_to_datetime_str,
     replace_readme_comments,
     longest_consecutive_dates,
     max_days_between_dates,
@@ -40,6 +42,7 @@ from utils import (
     time_to_seconds,
     seconds_to_time,
     format_pace,
+    split_string,
 )
 
 
@@ -355,6 +358,55 @@ def replace_running(github_token: str, repo_name: str):
     replace_running_year()
 
 
+def just_write_it(github_token: str, repo_name: str):
+    gh = Github(github_token)
+    repo = gh.get_repo(repo_name)
+    me = gh.get_user().login
+
+    split_by = "-" * 78
+    today_utc = fmt_to_today_utc(TimeZone)
+    for k, v in JustWriteIt.items():
+        labels = v.get("label")
+        desc = v.get("desc")
+
+        print(f"{k} processing {labels} ...")
+
+        issues = repo.get_issues(labels=labels, state="all", creator=me)
+        if issues.totalCount <= 0:
+            print(f"No issue found associated with the label({labels}).")
+            continue
+        issue: Issue = issues[0]
+
+        # load from file
+        file_path = os.path.join(DataDir, MyNumberFilenameFormat.format(**v))
+        data = []
+        if os.path.isfile(file_path):
+            with open(file_path, mode="r", encoding="utf-8", errors="ignore") as fr:
+                data = [i.strip() for i in fr.read().split(split_by) if i.strip()]
+
+        comments = issue.get_comments(since=today_utc.subtract(days=7))
+        if comments.totalCount <= 0:
+            print(f"No comment found.")
+
+        for c in comments:
+            if not github_is_me(c, me):
+                continue
+            text = c.body
+            created_at_date = fmt_utc_to_datetime_str(c.created_at, TimeZone)
+            write_text = f"{created_at_date}\n\n{split_string(text)}"
+            if write_text not in data:
+                data.insert(0, write_text)
+
+        if not data:
+            print("data is empty.")
+            continue
+
+        # write to file
+        with open(file=file_path, mode="w", encoding="utf-8", errors="ignore") as fw:
+            write_text = f"\n\n{split_by}\n\n".join(data)
+            fw.write(f"\n{write_text}\n\n")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("github_token", help="github_token")
@@ -366,3 +418,4 @@ if __name__ == "__main__":
 
     replace_my_number(options.github_token, options.repo_name)
     replace_running(options.github_token, options.repo_name)
+    just_write_it(options.github_token, options.repo_name)

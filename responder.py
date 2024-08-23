@@ -48,10 +48,11 @@ def respond_daily(
     task: dict,
     cmd_text: str,
 ):
-    labels: list = task.get("label")
-    if labels is None:
+    labels: list = task.get("label", [])
+    if not labels:
         bot.reply_to(message, f"labels empty.")
         return
+    check_duplicate = task.get("check_duplicate", True)
 
     issues = repo.get_issues(labels=labels, state="all", creator=github_name)
     if issues.totalCount <= 0:
@@ -61,35 +62,36 @@ def respond_daily(
     issue: Issue = issues[0]
     today_utc = fmt_to_today_utc(TimeZone)
 
-    # 获取当天issue，避免重复评论
-    # 如果当天已经评论过，更新最新评论的内容
-    comments = issue.get_comments(since=today_utc)
-    my_comments = [
-        c
-        for c in comments
-        if github_is_me(c, github_name) and is_today(c.created_at, TimeZone)
-    ]
-    if len(my_comments) > 0:
-        latest_comment: IssueComment = my_comments[-1]
-        latest_text = latest_comment.body.splitlines()[0]
-        if latest_text == cmd_text:
-            bot.reply_to(
-                message,
-                f"same comment.({fmt_utc_to_datetime_str(latest_comment.updated_at, TimeZone)})",
-            )
-            return
-        try:
-            latest_comment.edit(body=cmd_text)
-            bot.reply_to(
-                message,
-                f"update comment success:\n"
-                + f"{fmt_utc_to_datetime_str(latest_comment.updated_at, TimeZone)}\n"
-                + f"({latest_text})->({cmd_text})",
-            )
-        except Exception as e:
-            bot.reply_to(message, f"update comment failed: {e}")
+    if check_duplicate:
+        # 获取当天issue，避免重复评论
+        # 如果当天已经评论过，更新最新评论的内容
+        comments = issue.get_comments(since=today_utc)
+        my_comments = [
+            c
+            for c in comments
+            if github_is_me(c, github_name) and is_today(c.created_at, TimeZone)
+        ]
+        if len(my_comments) > 0:
+            latest_comment: IssueComment = my_comments[-1]
+            latest_text = latest_comment.body.splitlines()[0]
+            if latest_text == cmd_text:
+                bot.reply_to(
+                    message,
+                    f"same comment.({fmt_utc_to_datetime_str(latest_comment.updated_at, TimeZone)})",
+                )
+                return
+            try:
+                latest_comment.edit(body=cmd_text)
+                bot.reply_to(
+                    message,
+                    f"update comment success:\n"
+                    + f"{fmt_utc_to_datetime_str(latest_comment.updated_at, TimeZone)}\n"
+                    + f"({latest_text})->({cmd_text})",
+                )
+            except Exception as e:
+                bot.reply_to(message, f"update comment failed: {e}")
 
-        return
+            return
 
     try:
         issue.create_comment(body=cmd_text)

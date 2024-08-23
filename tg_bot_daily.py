@@ -15,6 +15,7 @@ from telebot.types import BotCommand, Message  # type: ignore
 from config import (
     GithubRepoName,
     MyNumber,
+    JustWriteIt,
     GithubWorkflow,
     MyClockIn,
     TelegramBotCommandInfo,
@@ -61,6 +62,7 @@ def set_bot_commands(bot: TeleBot) -> None:
             for cmd, val in TelegramBotCommandInfo.items()
         ]
         + [BotCommand(cmd, val.get("desc")) for cmd, val in RunningPhoto.items()]
+        + [BotCommand(cmd, val.get("desc")) for cmd, val in JustWriteIt.items()]
     )
 
 
@@ -177,7 +179,9 @@ def main():
 
         respond_my_number_todo(bot, message, gh_repo, gh_username)
 
-    @bot.message_handler(commands=[k for k in MyNumber.keys()])
+    @bot.message_handler(
+        commands=[k for k in MyNumber.keys()] + [k for k in JustWriteIt.keys()]
+    )
     def daily_handler(message: Message):
         cmd, cmd_text = extract_command(message, bot_name)
         if cmd is None:
@@ -187,9 +191,13 @@ def main():
             bot.reply_to(message, "comment is empty.")
             return
 
-        task: dict = MyNumber.get(cmd)
-        if task is None:
-            bot.reply_to(message, f"{task} config is not found.")
+        tasks = dict()
+        tasks.update(MyNumber)
+        tasks.update(JustWriteIt)
+
+        task: dict = tasks.get(cmd, {})
+        if not any(task):
+            bot.reply_to(message, f"task config is not found.")
             return
 
         if not is_owner(message, task.get("allowed_user")):

@@ -289,3 +289,26 @@ def format_pace(distance_meters, total_seconds):
     seconds = int((pace_per_km - minutes) * 60)
 
     return f"{minutes}'{seconds:02d}\""
+
+
+def split_string(s, line_width=72):
+    def char_width(c):
+        return 2 if "\u4e00" <= c <= "\u9fff" else 1
+
+    lines = []
+    current_line = ""
+    current_width = 0
+
+    for char in s:
+        char_w = char_width(char)
+        if current_width + char_w > line_width:
+            lines.append(current_line)
+            current_line = ""
+            current_width = 0
+        current_line += char
+        current_width += char_w
+
+    if current_line:
+        lines.append(current_line)
+
+    return "\n".join(lines)
