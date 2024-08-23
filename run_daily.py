@@ -378,7 +378,9 @@ def just_write_it(github_token: str, repo_name: str):
         issue: Issue = issues[0]
 
         # load from file
-        file_path = os.path.join(DataDir, MyNumberFilenameFormat.format(**v))
+        file_path = os.path.join(
+            v.get("path", DataDir), MyNumberFilenameFormat.format(**v)
+        )
         data = []
         if os.path.isfile(file_path):
             with open(file_path, mode="r", encoding="utf-8", errors="ignore") as fr:
