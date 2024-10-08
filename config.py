@@ -32,6 +32,7 @@ IssueOhMyGodLabels = ["oh my god"]
 IssueOhMyGodDLabels = ["oh my god d"]
 IssueRunningLabels = ["running"]
 IssueTalkToMyselfLabels = ["Talk to myself"]
+IssueTodayDidLabels = ["Did you do anything today"]
 
 
 def sum_items(items: list) -> int:
@@ -122,6 +123,15 @@ JustWriteIt = {
         "allowed_user": BotOwner,
         "desc": "自说自话",
         "label": IssueTalkToMyselfLabels,
+        "path": f"{DataDir}",
+        "hide_todo": True,
+        "hide_readme": True,
+        "check_duplicate": False,
+    },
+    "today_did": {
+        "allowed_user": BotOwner,
+        "desc": "Did_you_do_anything_today",
+        "label": IssueTodayDidLabels,
         "path": f"{DataDir}",
         "hide_todo": True,
         "hide_readme": True,
