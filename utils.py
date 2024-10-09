@@ -292,6 +292,9 @@ def format_pace(distance_meters, total_seconds):
 
 
 def split_string(s, line_width=72):
+    if "\n" in s.strip():
+        return s.strip()
+    
     def char_width(c):
         return 2 if "\u4e00" <= c <= "\u9fff" else 1
 
