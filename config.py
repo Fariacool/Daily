@@ -24,6 +24,7 @@ IssuePlankLabels = ["plank exercise"]
 IssueSquatLabels = ["squat"]
 IssuePushUpLabels = ["push-up"]
 IssueSitUpLabels = ["sit-up"]
+IssuePullUpLabels = ["pull-up"]
 IssueEnglishVocabularyLabels = ["English vocabulary"]
 IssueEnglishShadowingLabels = ["English shadowing"]
 IssueSkippingRopeLabels = ["skipping rope"]
@@ -73,6 +74,13 @@ MyNumber = {
         "allowed_user": BotOwner,
         "desc": "仰卧起坐",
         "label": IssueSitUpLabels,
+        "status_func": sum_items,
+        "status_unit_str": "(个)",
+    },
+    "pull_up": {
+        "allowed_user": BotOwner,
+        "desc": "引体向上",
+        "label": IssuePullUpLabels,
         "status_func": sum_items,
         "status_unit_str": "(个)",
     },
