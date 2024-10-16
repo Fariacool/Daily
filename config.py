@@ -1,4 +1,4 @@
-GithubName = "F4ria"
+GithubName = "Fariacool"
 GithubEmail = "f4riacool@gmail.com"
 GithubRepo = "Daily"
 GithubRepoName = f"{GithubName}/{GithubRepo}"
@@ -148,7 +148,7 @@ JustWriteIt = {
 }
 
 RunningActivityURL = (
-    "https://github.com/F4ria/running_page/blob/run/src/static/activities.json?raw=true"
+    "https://github.com/Fariacool/running_page/blob/run/src/static/activities.json?raw=true"
 )
 
 RunningPhoto = {

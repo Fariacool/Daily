@@ -6,7 +6,7 @@ on:
     - cron: "40 15 * * *"
 
 env:
-  GITHUB_NAME: F4ria
+  GITHUB_NAME: Fariacool
   GITHUB_EMAIL: f4riacool@gmail.com
 
 jobs:

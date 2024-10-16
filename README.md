@@ -50,7 +50,7 @@
 ## [跑步](https://running-f4ria.vercel.app/)
 
 <!--START_SECTION:running_img-->
-<img src="https://github.com/F4ria/Daily/blob/master/data/images/running/20241015-194343-138_weeks.jpg" width="35%">
+<img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20241008-171137-137_weeks.jpg" width="35%">
 <!--END_SECTION:running_img-->
 
 <!--START_SECTION:running_latest-->
