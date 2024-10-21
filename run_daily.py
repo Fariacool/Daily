@@ -315,6 +315,7 @@ def replace_running_year():
     latest_run = r_json[-latest_num:]
     latest_run_str = leatest_header
     for run in latest_run[::-1]:
+        moving_time = run["moving_time"].split(".")[0]
         latest_data = new_run_latest(
             RunningLatestHeader,
             run["start_date_local"],
