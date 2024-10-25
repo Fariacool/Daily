@@ -47,7 +47,7 @@
 <!--END_SECTION:my_number_year-->
 </details>
 
-## [跑步](https://running-f4ria.vercel.app/)
+## [跑步](https://fariacool.github.io/running_page/)
 
 <!--START_SECTION:running_img-->
 <img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20241021-223006-139_weeks.jpg" width="35%">
