@@ -3,7 +3,7 @@ name: Run Daily
 on:
   workflow_dispatch:
   schedule:
-    - cron: "40 15 * * *"
+    - cron: "50 15 * * *"
 
 env:
   GITHUB_NAME: Fariacool
