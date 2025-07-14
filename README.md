@@ -58,25 +58,25 @@
 ## [跑步](https://fariacool.github.io/running_page/)
 
 <!--START_SECTION:running_img-->
-<img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20250707-211102-176_weeks.jpg" width="35%">
+<img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20250714-230020-177_weeks.jpg" width="35%">
 <!--END_SECTION:running_img-->
 
 <!--START_SECTION:running_latest-->
 | Latest Date | Distance | Time | Avg Pace |
 | :---: | :---: | :---: | :---: |
+| 2025-07-14 19:54:38 | 12.60 km | 1:15:16 | 5'58" |
 | 2025-07-10 20:18:08 | 12.14 km | 1:17:53 | 6'24" |
 | 2025-07-07 19:48:49 | 12.10 km | 1:12:50 | 6'01" |
 | 2025-07-05 20:54:04 | 12.04 km | 1:18:34 | 6'31" |
 | 2025-07-03 18:46:02 | 12.03 km | 1:16:14 | 6'20" |
-| 2025-06-29 18:41:32 | 12.21 km | 1:13:36 | 6'01" |
 
 <!--END_SECTION:running_latest-->
 
 <!--START_SECTION:running_year-->
 | Year | Distance | Time | Avg Pace | Runs |
 | :---: | :---: | :---: | :---: | :---: |
-|   | 3801.59 km | 418:40:47 | 6'36" | 437 |
-| 2025 | 449.44 km | 45:20:41 | 6'03" | 40 |
+|   | 3814.19 km | 419:56:03 | 6'36" | 438 |
+| 2025 | 462.04 km | 46:35:57 | 6'03" | 41 |
 | 2024 | 2071.11 km | 222:00:49 | 6'25" | 133 |
 | 2023 | 818.80 km | 96:32:50 | 7'04" | 135 |
 | 2022 | 462.23 km | 54:46:27 | 7'06" | 129 |
@@ -90,7 +90,7 @@
 ### 2025
 | Month | Distance | Time | Avg Pace | Runs |
 | :---: | :---: | :---: | :---: | :---: |
-| 07 | 48.31 km | 5:05:31 | 6'19" | 4 |
+| 07 | 60.91 km | 6:20:47 | 6'15" | 5 |
 | 06 | 80.45 km | 8:07:37 | 6'03" | 7 |
 | 05 | 44.39 km | 4:31:23 | 6'06" | 5 |
 | 04 | 70.83 km | 6:59:34 | 5'55" | 6 |
