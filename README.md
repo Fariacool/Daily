@@ -58,7 +58,7 @@
 ## [跑步](https://fariacool.github.io/running_page/)
 
 <!--START_SECTION:running_img-->
-<img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20251215-211302-199_weeks.jpg" width="35%">
+<img src="https://github.com/Fariacool/Daily/blob/master/data/images/running/20251226-210815-200_weeks.jpg" width="35%">
 <!--END_SECTION:running_img-->
 
 <!--START_SECTION:running_latest-->
